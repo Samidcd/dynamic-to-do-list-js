@@ -5,15 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const addButton = document.getElementById('add-task-btn');
     const taskList = document.getElementById('task-list');
 
-    // Function to add a new task
-    function addTask() {
-        const taskText = taskInput.value.trim(); // Get and trim input value
+    // Function to load initial tasks
+    function loadTasks() {
+        // Example: Load some default tasks (static for now)
+        const initialTasks = ['Buy groceries', 'Read a book', 'Work on the project'];
 
-        if (taskText === '') {
-            alert('Please enter a task!');
-            return;
-        }
+        initialTasks.forEach(task => {
+            const listItem = createTaskElement(task);
+            taskList.appendChild(listItem);
+        });
+    }
 
+    // Function to create a new task element
+    function createTaskElement(taskText) {
         // Create a new list item (li)
         const listItem = document.createElement('li');
         listItem.textContent = taskText;
@@ -31,7 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // Append the remove button to the list item
         listItem.appendChild(removeButton);
 
-        // Append the list item to the task list
+        return listItem;
+    }
+
+    // Function to add a new task
+    function addTask() {
+        const taskText = taskInput.value.trim(); // Get and trim input value
+
+        if (taskText === '') {
+            alert('Please enter a task!');
+            return;
+        }
+
+        // Create a new task element and append it to the task list
+        const listItem = createTaskElement(taskText);
         taskList.appendChild(listItem);
 
         // Clear the input field
@@ -47,4 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             addTask();
         }
     });
+
+    // Load initial tasks when the page loads
+    loadTasks();
 });
